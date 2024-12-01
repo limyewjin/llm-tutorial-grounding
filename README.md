@@ -36,7 +36,7 @@ The original tutorial considers "49-fold growth" as the complete correct answer.
 
 - **Gemini**: 9/12 correct responses
   - Provided 49-fold in nine variants
-  - Three anomalous responses giving only an absolute number (698000) - these wer all from `no_quote_doc_second`
+  - Three anomalous responses giving only an absolute number (698000) - these were all from `no_quote_doc_second` (so it's really one variant getting it wrong across iterations)
 
 By the original metric, all models performed strongly, with 33/36 responses correctly identifying the 49-fold growth.
 
