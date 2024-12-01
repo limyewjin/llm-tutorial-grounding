@@ -7,7 +7,7 @@ There are two variables we tested:
 1. Whether the prompt includes a request to pull a quote from the document.
 2. The order of the document in the prompt.
 
-The results are in `llm_results.txt`.
+The results are in `llm_results_20241201_100018.csv`.
 
 ## Experiment Setup
 
