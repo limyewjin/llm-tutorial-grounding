@@ -1,0 +1,118 @@
+iteration,model,variant,response,error
+1,anthropic,quote_doc_first,"Let me review the document for the relevant information.
+
+<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote directly answers the question with a clear numerical growth metric.
+
+<answer>Matterport's subscribers grew approximately 49-fold (or 4,900%) from December 2018 to December 2022.</answer>",False
+1,anthropic,quote_doc_second,"<quote>As of December 31, 2022, our subscriber base had grown approximately 39% to over 701,000 subscribers from 503,000 subscribers as of December 31, 2021, with our digital twins reaching more than 170 countries.</quote>
+
+While this quote provides subscriber growth from 2021 to 2022, the document also specifically addresses growth from 2018 to 2022 in another quote:
+
+<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+<answer>Matterport's subscribers grew from approximately 14,300 (701,000 ÷ 49) in December 2018 to 701,000 in December 2022, which represents a growth of approximately 686,700 subscribers.</answer>",False
+1,anthropic,no_quote_doc_first,<answer>49-fold</answer>,False
+1,anthropic,no_quote_doc_second,"<answer>Matterport's subscribers grew from approximately 14,000 in December 2018 to over 701,000 in December 2022, which represents approximately a 49-fold increase.</answer>",False
+1,gemini,quote_doc_first,"<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote directly answers the question.  It states that subscriber growth was approximately 49-fold.  While it doesn't give the exact numbers, it provides the relative growth.
+
+<answer>49-fold</answer>
+",False
+1,gemini,quote_doc_second,"<quote>Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote states that subscribers grew 49 times from the end of 2018 to the end of 2022, but it does not give the exact starting and ending numbers of subscribers.  Therefore, it lacks sufficient detail to answer the question of the *amount* of subscriber growth.
+
+<answer>The provided text states a 49-fold increase, but does not provide the specific numerical subscriber count for either December 2018 or December 2022, preventing calculation of the exact amount of growth.</answer>
+",False
+1,gemini,no_quote_doc_first,"<answer>49-fold</answer>
+",False
+1,gemini,no_quote_doc_second,"<answer>698000</answer>
+",False
+1,openai,quote_doc_first,"<quote>“Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.”</quote>  
+<answer>Approximately 49 times (49-fold) growth in subscribers.</answer>",False
+1,openai,quote_doc_second,"<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+<answer>Approximately 49-fold growth in subscribers from December 2018 to December 2022.</answer>",False
+1,openai,no_quote_doc_first,<answer>Approximately 49-fold</answer>,False
+1,openai,no_quote_doc_second,<answer>Approximately 49-fold</answer>,False
+2,anthropic,quote_doc_first,"Let me review the document for the relevant information.
+
+<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote directly answers the question with a clear numerical growth metric.
+
+<answer>Matterport's subscribers grew approximately 49-fold (or 4,900%) from December 2018 to December 2022.</answer>",False
+2,anthropic,quote_doc_second,"<quote>As of December 31, 2022, our subscriber base had grown approximately 39% to over 701,000 subscribers from 503,000 subscribers as of December 31, 2021, with our digital twins reaching more than 170 countries.</quote>
+
+While this quote provides subscriber growth from 2021 to 2022, the document also specifically addresses growth from 2018 to 2022 in another quote:
+
+<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+<answer>Matterport's subscribers grew from approximately 14,300 (701,000 ÷ 49) in December 2018 to 701,000 in December 2022, which represents a growth of approximately 686,700 subscribers.</answer>",False
+2,anthropic,no_quote_doc_first,<answer>49-fold</answer>,False
+2,anthropic,no_quote_doc_second,"<answer>From December 2018 to December 2022, Matterport's subscribers grew approximately 49-fold, from a base of around 14,300 subscribers (701,000 ÷ 49) to over 701,000 subscribers.</answer>",False
+2,gemini,quote_doc_first,"<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote directly answers the question.  It states that subscriber growth was approximately 49-fold.  While it doesn't give the exact numbers, it provides the relative growth.
+
+<answer>49-fold</answer>
+",False
+2,gemini,quote_doc_second,"<quote>Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote states that subscribers grew 49 times from the end of 2018 to the end of 2022, but it does not give the exact starting and ending numbers of subscribers.  Therefore, it lacks sufficient detail to answer the question of the *amount* of subscriber growth.
+
+<answer>The provided text states a 49-fold increase, but does not provide the specific numerical subscriber count for either December 2018 or December 2022, preventing calculation of the exact amount of growth.</answer>
+",False
+2,gemini,no_quote_doc_first,"<answer>49-fold</answer>
+",False
+2,gemini,no_quote_doc_second,"<answer>698000</answer>
+",False
+2,openai,quote_doc_first,"<quote>“Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.”</quote>  
+<answer>Approximately 49 times (or 4,900%) from December 2018 to December 2022.</answer>",False
+2,openai,quote_doc_second,"<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+<answer>Approximately 49-fold growth in subscribers from December 31, 2018 to December 31, 2022.</answer>",False
+2,openai,no_quote_doc_first,<answer>Approximately 49-fold</answer>,False
+2,openai,no_quote_doc_second,<answer>Approximately 49-fold</answer>,False
+3,anthropic,quote_doc_first,"Let me review the document for the relevant information.
+
+<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote directly answers the question with a clear numerical growth metric.
+
+<answer>Matterport's subscribers grew approximately 49-fold (or 4,900%) from December 2018 to December 2022.</answer>",False
+3,anthropic,quote_doc_second,"<quote>As of December 31, 2022, our subscriber base had grown approximately 39% to over 701,000 subscribers from 503,000 subscribers as of December 31, 2021, with our digital twins reaching more than 170 countries.</quote>
+
+While this quote provides subscriber growth from 2021 to 2022, the document also specifically addresses growth from 2018 to 2022 in another quote:
+
+<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+<answer>Matterport's subscribers grew from approximately 14,300 (701,000 ÷ 49) in December 2018 to 701,000 in December 2022, which represents a growth of approximately 686,700 subscribers.</answer>",False
+3,anthropic,no_quote_doc_first,<answer>49-fold</answer>,False
+3,anthropic,no_quote_doc_second,"<answer>From December 2018 to December 2022, Matterport's subscribers grew approximately 49-fold, from around 14,300 subscribers to over 701,000 subscribers.</answer>",False
+3,gemini,quote_doc_first,"<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote directly answers the question.  It states that subscriber growth was approximately 49-fold.  While it doesn't give the exact numbers, it provides the relative growth.
+
+<answer>49-fold</answer>
+",False
+3,gemini,quote_doc_second,"<quote>Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+This quote states that subscribers grew 49 times, but it does not give the exact starting and ending numbers of subscribers.  Therefore, it lacks sufficient detail to answer the question precisely.  To calculate the exact growth, we need the initial and final subscriber counts.
+
+<answer>The provided text states a 49-fold increase but does not provide the specific numbers to calculate the exact subscriber growth from December 2018 to December 2022.</answer>
+",False
+3,gemini,no_quote_doc_first,"<answer>49-fold</answer>
+",False
+3,gemini,no_quote_doc_second,"<answer>698000</answer>
+",False
+3,openai,quote_doc_first,"<quote> ""Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022."" </quote>  
+<answer>49-fold increase in subscribers</answer>",False
+3,openai,quote_doc_second,"<quote>We have recently experienced rapid growth. Our subscribers have grown approximately 49-fold from December 31, 2018 to December 31, 2022.</quote>
+
+<answer>Approximately 49-fold growth in subscribers from December 2018 to December 2022.</answer>",False
+3,openai,no_quote_doc_first,<answer>Approximately 49-fold</answer>,False
+3,openai,no_quote_doc_second,<answer>Approximately 49-fold</answer>,False

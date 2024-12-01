@@ -1,4 +1,9 @@
 import api
+from typing import Dict, List
+import csv
+from datetime import datetime
+
+NUM_ITERATIONS = 3  # Set number of iterations as constant
 
 DOCUMENT = """
 <document>
@@ -28,7 +33,7 @@ Overview
 Our technology platform uses spatial data collected from a wide variety of digital capture devices to transform physical buildings and spaces into dimensionally accurate, photorealistic digital twins that provide our subscribers access to previously unavailable building information and insights.
 As a first mover in this massive market for nearly a decade, we have developed and scaled our industry-leading 3D reconstruction technology powered by Cortex, our proprietary AI-driven software engine that uses machine learning to recreate a photorealistic, 3D virtual representation of an entire building structure, including contents, equipment and furnishings. The finished product is a detailed and dynamic replication of the physical space that can be explored, analyzed and customized from a web browser on any device, including smartphones. The power to manage even large-scale commercial buildings is in the palm of each subscriber’s hands, made possible by our advanced technology and breakthrough innovations across our entire spatial data technology stack.
 Key elements of our spatial data platform include:
-•Bringing offline buildings online. Traditionally, our customers needed to conduct in-person site visits to understand and assess their buildings and spaces. While photographs and floor plans can be helpful, these forms of two-dimensional (“2D”) representation have limited information and tend to be static and rigid, and thus lack the interactive element critical to a holistic understanding of each building and space. With the AI-powered capabilities of Cortex, our proprietary AI software, representation of physical objects is no longer confined to static 2D images and physical visits can be eliminated. Cortex helps to move the buildings and spaces from offline to online and makes them accessible to our customers in real-time and on demand from anywhere. After subscribers scan their buildings, our visualization algorithms accurately infer spatial positions and depths from flat, 2D imagery captured through the scans and transform them into high- fidelity and precise digital twin models. This creates a fully automated image processing pipeline to ensure that each digital twin is of professional grade image quality.
+•Bringing offline buildings online. Traditionally, our customers needed to conduct in-person site visits to understand and assess their buildings and spaces. While photographs and floor plans can be helpful, these forms of two-dimensional (2D) representation have limited information and tend to be static and rigid, and thus lack the interactive element critical to a holistic understanding of each building and space. With the AI-powered capabilities of Cortex, our proprietary AI software, representation of physical objects is no longer confined to static 2D images and physical visits can be eliminated. Cortex helps to move the buildings and spaces from offline to online and makes them accessible to our customers in real-time and on demand from anywhere. After subscribers scan their buildings, our visualization algorithms accurately infer spatial positions and depths from flat, 2D imagery captured through the scans and transform them into high- fidelity and precise digital twin models. This creates a fully automated image processing pipeline to ensure that each digital twin is of professional grade image quality.
 •Driven by spatial data. We are a data-driven company. Each incremental capture of a space grows the richness and depth of our spatial data library. Spatial data represents the unique and idiosyncratic details that underlie and compose the buildings and spaces in the human- made environment. Cortex uses the breadth of the billions of data points we have accumulated over the years to improve the 3D accuracy of our digital twins. We help our subscribers pinpoint the height, location and other characteristics of objects in their digital twin. Our sophisticated algorithms also deliver significant commercial value to our subscribers by generating data-based insights that allow them to confidently make assessments and decisions about their properties. For instance, property developers can assess the amount of natural heat and daylight coming from specific windows, retailers can ensure each store layout is up to the same level of code and brand requirements, and factories can insure machinery layouts meet specifications and location guidelines. With approximately 9.2 million spaces under management as of December 31, 2022, our spatial data library is the clearinghouse for information about the built world.
 •Powered by AI and ML. Artificial intelligence and machine learning technologies effectively utilize spatial data to create a robust virtual experience that is dynamic, realistic, interactive, informative and permits multiple viewing angles. AI and ML also make costly cameras unnecessary for everyday scans—subscribers can now scan their spaces by simply tapping a button on their smartphones. As a result, Matterport is a device agnostic platform, helping us more rapidly scale and drive towards our mission of digitizing and indexing the built world.
 Our value proposition to subscribers is designed to serve the entirety of the digital building lifecycle, from design and build to maintenance and operations, promotion, sale, lease, insure, repair, restore, secure and finance. As a result, we believe we are uniquely positioned to grow our revenue with our subscribers as we help them to discover opportunities to drive short- and long-term return on investment by taking their buildings and spaces from offline to online across their portfolios of properties.
@@ -82,8 +87,18 @@ From December 2018 to December 2022, by what amount did Matterport's subscribers
 Please read the below document. Then, in <quote> tags, pull the most relevant quote from the document and consider whether it answers the user's question or whether it lacks sufficient detail. Then write a brief numerical answer in <answer> tags.
 """.strip()
 
-def test_all_models():
-    results = {}
+def run_model_test(model_name: str, prompt: str) -> str:
+    """Run a single model test and return response."""
+    try:
+        ask_func = getattr(api, f"ask_{model_name}")
+        return ask_func(prompt)
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+def test_all_models() -> List[Dict]:
+    """Test all models and return results as list of dictionaries for CSV output."""
+    results = []
+    
     variants = {
         "quote_doc_first": f"{DOCUMENT}\n{QUOTE_PROMPT}",
         "quote_doc_second": f"{QUOTE_PROMPT}\n{DOCUMENT}",
@@ -91,26 +106,39 @@ def test_all_models():
         "no_quote_doc_second": f"{NO_QUOTE_PROMPT}\n{DOCUMENT}"
     }
     
-    for model_name in ["anthropic", "gemini", "openai"]:
-        print(f"\nTesting {model_name.capitalize()} model...")
-        model_results = {}
-        
-        try:
-            ask_func = getattr(api, f"ask_{model_name}")
-            
+    for iteration in range(NUM_ITERATIONS):
+        print(f"\nIteration {iteration + 1}/{NUM_ITERATIONS}")
+        for model_name in ["anthropic", "gemini", "openai"]:
+            print(f"  Testing {model_name}...")
             for variant_name, prompt in variants.items():
-                response = ask_func(prompt)
-                print(f"{model_name.capitalize()} {variant_name} response:", response)
-                model_results[variant_name] = response
+                response = run_model_test(model_name, prompt)
                 
-            results[model_name] = model_results
-            
-        except Exception as e:
-            print(f"Error with {model_name} model:", str(e))
-            results[model_name] = f"Error: {str(e)}"
+                results.append({
+                    "iteration": iteration + 1,
+                    "model": model_name,
+                    "variant": variant_name,
+                    "response": response,
+                    "error": response.startswith("Error")
+                })
     
     return results
 
+def save_results(results: List[Dict]):
+    """Save results to a CSV file with timestamp."""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"llm_results_{timestamp}.csv"
+    
+    fieldnames = ["iteration", "model", "variant", "response", "error"]
+    
+    with open(filename, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(results)
+    
+    print(f"\nResults saved to {filename}")
+
 if __name__ == "__main__":
+    print(f"Running tests with {NUM_ITERATIONS} iterations...")
     results = test_all_models()
+    save_results(results)
 
